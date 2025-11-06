@@ -28,6 +28,7 @@ const QuizPage = ({ showScreen }: { showScreen: (screen: string) => void }) => {
 
     // Clears the message if the user changes their selection
     useEffect(() => {
+        showScreen("quiz");
         console.log("questionData.image :  ",questionData.image)
         if (submissionMessage.text) {
             setSubmissionMessage({ type: null, text: "" });

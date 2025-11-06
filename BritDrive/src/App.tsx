@@ -7,12 +7,13 @@ import britDrive from "../src/assets/Gemini_Generated_Image_l703krl703krl703.png
 
 // import image form "../ "
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
   const [currentScreen, setCurrentScreen] = useState('Register'); // Start on Register screen
   const [startQuiz, setStartQuiz] = useState(false);
   const showScreen = (screenName:string) => {
         setCurrentScreen(screenName);
     };
+    console.log("currentScreen: ",currentScreen)
   //  className='bg-britDrive bg-white/95 backdrop-blur-sm h-20 w-full'
   return (
     <>
