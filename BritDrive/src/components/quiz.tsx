@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import questData from "../assets/questData";
-import britDrive from "../assets/Gemini_Generated_Image_358oab358oab358o.png"
+import britDrive from "../assets/Gemini_Generated_Image_358oab358oab358o.png";
+import he from "he";
 // --- Placeholder Quiz Page (for flow context) ---
-const QuizPage = ({ showScreen }: { showScreen: (screen: string) => void }) => {
+interface Props {
+    showScreen:(screeen:string)=>void;
+    // answered: number;
+    setAnswered: React.Dispatch<React.SetStateAction<number>>;
+    // ...other props...
+}
+const QuizPage = ({ showScreen,setAnswered }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   // State to handle the submission message and replace the forbidden alert()
   const [submissionMessage, setSubmissionMessage] = useState<{type:any, text:string}>({ type: null, text: "" });
-  const [questionData, setQuestionData] = useState(questData[Math.floor(Math.random()*questData.length)
-]);
+  const [questionData, setQuestionData] = useState(questData[Math.floor(Math.random()*questData.length)]);
   const [isCorrect, setIscorrect]=useState(false);
   const updateQuestionData = ()=>{
     setQuestionData(questData[Math.floor(Math.random()*questData.length)])
@@ -52,6 +58,7 @@ const QuizPage = ({ showScreen }: { showScreen: (screen: string) => void }) => {
                 type: 'success', 
                 text: `Correct! The answer is: ${questionData.answer}` 
             });
+            setAnswered(prev=>prev+1);
         } else {
             setSubmissionMessage({ 
                 type: 'error', 
@@ -62,16 +69,16 @@ const QuizPage = ({ showScreen }: { showScreen: (screen: string) => void }) => {
   
   return (
 
-    <div className={`bg-[url(${britDrive})] min-h-screen flex items-center justify-center p-4 font-inter`}>
+    <div className={`bg-[url(${britDrive})]  flex items-center justify-center p-4 font-inter`}>
             <div className={`max-w-xl w-full bg-[url(${questionData.image})] bg-no-repeat bg-center bg-size-[auto_50px]`}>
                 
                 <form onSubmit={handleSubmit} className="bg-transparent shadow-xl rounded-xl p-8 border border-gray-200">
                     
                     {/* --- Question Heading --- */}
                     <div className="flex flex-row">
-                        <h3 dangerouslySetInnerHTML={{ __html: questionData.question }} className="text-2xl font-extrabold leading-tight text-gray-900 mb-8">
+                        <h3 className="text-2xl font-extrabold leading-tight text-gray-900 mb-8">
                         {/* <span className="text-indigo-600 mr-2">Q{questionData.number}.</span>  */}
-                        {/* {questionData.question} */}
+                        {he.decode(questionData.question)}
                        </h3>
                        {questionData.image && <img src={questionData.image} height={100} width={100}/>}
                     </div>
@@ -116,7 +123,7 @@ const QuizPage = ({ showScreen }: { showScreen: (screen: string) => void }) => {
                                     {/* The Option Text */}
                                     <span className="ml-4 text-base font-medium text-gray-900">
                                         <span className="font-semibold text-indigo-700 mr-2">{optionKey}.</span>
-                                        {optionText}
+                                        {he.decode(optionText)}
                                     </span>
                                 </label>
                             );
