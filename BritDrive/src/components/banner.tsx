@@ -52,9 +52,9 @@ const Banner: React.FC<BannerProps> = ({ answered,showQuestionBay,startQuiz, upc
          {!startQuiz && <button onClick={()=>{setShowQuestionBay(false); setStartQuiz(true)}} className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition">
           Start Quiz
         </button>}
-        <button className="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300 transition">
+        {/* <button className="disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300 transition" disabled>
           LogOut
-        </button>
+        </button> */}
       </div>
         </div>
         <>
